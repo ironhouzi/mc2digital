@@ -9,4 +9,4 @@ Dates in filenames are stored in the ISO 8601 standard.
 
 Dependencies: GNU bash 4.x, sox, KDE 4.5 or higher (for notify-send)
 
-Tested on: Slackware 14 x86_64, KDE 4.10.5
+Tested on: Slackware 14 x86_64, KDE 4.10.5, zsh 5.0.0 and GNU bash version 4.2.37(2)-release
