@@ -1,3 +1,8 @@
+#############################################################
+# Depends on the file .mc2digipush in ~/ which contains:    #
+# <device id>                                               #
+# <api key>                                                 #
+#############################################################
 #!/bin/bash
 
 target="/home/$USER/m/audio/ktl_arkiv"
