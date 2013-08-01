@@ -146,8 +146,20 @@ while true; do
 
 	read -p "Record all tapes, or specific range? [0 means all tapes] " -ei "$range" range
 	if [ $range -ne 0 ]; then
-		read -p "First tape to record? " -ei "$cassStart" cassStart
-		read -p "What side on tape $cassStart to record? [A/b] " -ei "$sideStart" sideStart
+        while true; do
+            read -p "First tape to record? [1 - ${cassCnt}]" -ei "$cassStart" cassStart
+
+            if [[ $cassStart -lt 1 || $cassStart -gt cassCnt ]];then
+                continue
+            fi
+
+            read -p "What side on tape $cassStart to record? [A/b] " -ei "$sideStart" sideStart
+
+            if [[ $sideStart -eq "a" || $sideStart -eq "b" ]]; then
+                break
+            fi
+        done
+
 		if [ $sideStart == 'A' ]; then
 			subtract=1
 		else
