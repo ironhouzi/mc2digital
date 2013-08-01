@@ -5,12 +5,19 @@
 #############################################################
 #!/bin/bash
 
+#################
+### Declare paths
+#################
 target="/home/$USER/m/audio/ktl_arkiv"
 sshbckp="ktlmedia:/media/raid/audio/"
 codefile=/home/$USER/.lama_codes.txt
 persistfile=/home/$USER/.mc2digitalval
 apifile=/home/$USER/.mc2digipush
 url="https://www.pushbullet.com/api/pushes"
+
+#####################
+### Declare variables
+#####################
 noapi=0
 
 if [[ -f $apifile ]];then
@@ -31,6 +38,9 @@ range=0
 cassette=1
 newsubj="and enter subject for next cassette"
 
+###############################
+### Configure alsa sound source
+###############################
 IFS=$'\n' hwlines=($(aplay -l | grep "^card*"))
 init=0
 
@@ -62,6 +72,9 @@ if [[ $init == 0 || ! -f $persistfile ]];then
     audiodev="hw:${hwcard},${hwdev}"
 fi
 
+################################
+### Gather recording information
+################################
 while true; do
 	read -p "Enter place of recording and press [ENTER]: " -ei "$place" place
 
@@ -177,6 +190,10 @@ while true; do
 		day="0"$day
 	fi
 
+    ############################
+    ### Verify data or try agian
+    ############################
+
 	echo "Place:                $place"
 	echo "Name of Lama:         $name (${fullName})"
 	echo "Subject:              $subject"
@@ -194,6 +211,11 @@ while true; do
 	fi
 done
 
+
+############################
+### Create and move into dir
+############################
+
 cd "$target"
 dir="${name}_${place}_${year}-${month}-${day}_${subject}"
 
@@ -205,6 +227,11 @@ cd "$dir"
 
 echo "Rewind the cassette tape!"
 read -p "Press [ENTER] when ready .."
+
+
+########################
+### Start recording loop
+########################
 
 for (( i=$startNr; i<=$endNr; i++ ))
 do
