@@ -265,7 +265,7 @@ do
 		side="A"
 	fi
 
-    if [[ -f $apifile ]]; then
+    if [[ $noapi -eq 0 ]]; then
         curl --data "device_id=${device}&type=note&title=Recording done&body=Finished cassette ${cassette}, side ${side}" ${url} -u ${api}: &> /dev/null
     fi
 
@@ -284,7 +284,7 @@ do
 			read -p "$msg"
 		fi
 
-    elif [[ -f $apifile ]]; then
+    elif [[ $noapi -eq 0 ]]; then
 		curl --data "device_id=${device}&type=note&title=All done&body=Finished recording ${dir}" "$url" -u "${api}": &> /dev/null
 	fi
 done
