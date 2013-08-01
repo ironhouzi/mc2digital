@@ -37,6 +37,7 @@ samesubj="y"
 range=0
 cassette=1
 newsubj="and enter subject for next cassette"
+dirTitle=""
 
 ###############################
 ### Configure alsa sound source
@@ -117,14 +118,15 @@ while true; do
 			fi
 		done
 	fi
-		
 
-
-	read -p "Enter subject and press [ENTER]: " -ei "$subject" subject
-	read -p "All tapes have same subject? [y/N]: " -ei "$samesubj" samesubj
+	read -p "All tapes have same subject? [Y/n]: " -ei "$samesubj" samesubj
 
 	if [ "$samesubj" == "n" ];then
-		subject="$subject WMT"
+        read -p "Enter title for entire recording and press [ENTER]: " -ei "$dirTitle" dirTitle 
+        read -p "Enter subject for first recording and press [ENTER]: " -ei "$subject" subject
+    else
+        read -p "Enter subject and press [ENTER]: " -ei "$subject" subject
+        dirTitle="$subject"
 	fi
 
 	read -p "Enter number of cassettes for the recording session and press [ENTER]: " -ei "$cassCnt" cassCnt 
@@ -197,6 +199,7 @@ while true; do
 	echo "Place:                $place"
 	echo "Name of Lama:         $name (${fullName})"
 	echo "Subject:              $subject"
+	echo "Title:                $dirTitle"
 	echo "All tapes same subj.: $samesubj"
 	echo "Number of cassettes:  $cassCnt"
 	echo "Sides to be recorded: $sideCnt"
@@ -217,9 +220,11 @@ done
 ############################
 
 cd "$target"
-dir="${name}_${place}_${year}-${month}-${day}_${subject}"
+dirTitle=${dirTitle// /_}
+dir="${name}_${place}_${year}-${month}-${day}_${dirTitle}"
 
-if [[ ! -d $dir ]]; then
+if [[ ! -d "$dir" ]]; then
+    echo "making dir: $dir"
 	mkdir "$dir"
 fi
 
@@ -235,6 +240,7 @@ read -p "Press [ENTER] when ready .."
 
 for (( i=$startNr; i<=$endNr; i++ ))
 do
+    subject=${subject// /_}
 	filename="${name}_${place}_${year}-${month}-${day}_`printf "%02d" ${i}`x`printf "%02d" ${sideCnt}`_${subject}.wav"
 
 	AUDIODEV=$audiodev rec -r 44100 "$filename" silence 1 0.1 0.1% 1 3.0 0.1%
@@ -261,7 +267,7 @@ do
 	if [ $i -ne $sideCnt ]; then
 
 		if [ "$samesubj" == "n" ]; then
-			read -p "$msg ${newsubj}:" -ei "$subject" subject
+			read -p "$msg ${newsubj}: " -ei "$subject" subject
 		else
 			read -p "$msg"
 		fi
