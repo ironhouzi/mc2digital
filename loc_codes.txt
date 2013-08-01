@@ -1,3 +1,7 @@
 KTL: Karma Tashi Ling
 KSL: Karma Shedrup Ling
 PMM: Paramita Meditasjonsenter
+OSL: Oslo
+KBH: København
+RTK: Rumtek
+DHR: Dharamsala
