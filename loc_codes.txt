@@ -5,3 +5,4 @@ OSL: Oslo
 KBH: København
 RTK: Rumtek
 DHR: Dharamsala
+GBR: Great Britain
