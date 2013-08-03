@@ -1,9 +1,10 @@
+#!/bin/bash
+
 #############################################################
 # Depends on the file .mc2digipush in ~/ which contains:    #
 # <device id>                                               #
 # <api key>                                                 #
 #############################################################
-#!/bin/bash
 
 #################
 ### Declare paths
