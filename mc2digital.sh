@@ -123,14 +123,14 @@ while true; do
 	read -p "All tapes have same subject? [Y/n]: " -ei "$samesubj" samesubj
 
 	if [ "$samesubj" == "n" ];then
-        read -p "Enter title for entire recording and press [ENTER]: " -ei "$dirTitle" dirTitle 
+        read -p "Enter title for entire recording and press [ENTER]: " -ei "$dirTitle" dirTitle
         read -p "Enter subject for first recording and press [ENTER]: " -ei "$subject" subject
     else
         read -p "Enter subject and press [ENTER]: " -ei "$subject" subject
         dirTitle="$subject"
 	fi
 
-	read -p "Enter number of cassettes for the recording session and press [ENTER]: " -ei "$cassCnt" cassCnt 
+	read -p "Enter number of cassettes for the recording session and press [ENTER]: " -ei "$cassCnt" cassCnt
 
 	sideCnt=$(( cassCnt * 2 ))
 
@@ -292,4 +292,4 @@ done
 
 cd ..
 
-rsync -a "$target" "$sshbckp" &
+rsync -aL "$target" "$sshbckp" &
