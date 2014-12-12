@@ -169,12 +169,12 @@ while true; do
 		startNr=$(( cassStart * 2 - subtract ))
 		cassette=$cassStart
 
-		read -p "Last tape to record? [press '0' = to record to the very end " -ei "$cassEnd" cassEnd
+		read -p "Last tape to record? [press '0' = to record to the very end]" -ei "$cassEnd" cassEnd
 		if [ $cassEnd -eq 0 ]; then
 			endNr=$sideCnt
 		else
 			read -p "What is the last side on tape $cassEnd to record? [A/b] " -ei "$sideEnd" sideStart
-			if [ $sideEnd == 'A']; then
+			if [ $sideEnd == 'A' ]; then
 				subtract=1
 			else
 				subtract=0
